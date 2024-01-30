@@ -66,6 +66,56 @@ body {
   transition: opacity 100ms linear;
 }
 
+.cards .card {
+  box-shadow: -1rem 0 3rem #000;
+
+  transition: transform 200ms ease-out;
+}
+
+.cards .card:hover {
+  transform: translateY(-1rem) rotate(3deg);
+}
+
+.cards .card:hover ~ .card {
+  transform: translateX(130px);
+}
+
+.cards .card:not(:first-child) {
+  margin-left: -130px;
+}
+
+.cards .card:hover .title {
+  background: linear-gradient(90deg, #373b44, #4286f4);
+  text-shadow: none;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cards::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.cards::-webkit-scrollbar-thumb {
+  background: #1e293b;
+}
+
+.cards::-webkit-scrollbar-track {
+  background: linear-gradient(90deg, #201c29, #201c29 1px, #17141d 0, #17141d);
+}
+
+.cards .content::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+}
+.cards .content::-webkit-scrollbar-thumb {
+  background: #1e293b;
+}
+
+.cards .content::-webkit-scrollbar-track {
+  background: linear-gradient(90deg, #201c29, #201c29 1px, #17141d 0, #17141d);
+}
+
 @keyframes scale-up {
   0% {
     left: 50%;
