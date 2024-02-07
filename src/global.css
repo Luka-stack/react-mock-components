@@ -256,3 +256,48 @@ body {
     transform: translateY(100%);
   }
 }
+
+/* Navigation Menu */
+.navigation-menu-appear-enter {
+  opacity: 0;
+  transform: scaleX(0.95) scaleY(0.95);
+}
+
+.navigation-menu-appear-enter-active {
+  opacity: 1;
+  transform: scaleX(1) scaleY(1);
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
+}
+
+.navigation-menu-appear-exit {
+  opacity: 1;
+  transform: scaleX(1) scaleY(1);
+}
+
+.navigation-menu-appear-exit-active {
+  opacity: 0;
+  transform: scaleX(0.95) scaleY(0.95);
+  transition: opacity 200ms ease-in, transform 200ms ease-in;
+}
+
+[data-open='true'] > .navigation-menu-item-appear-enter {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+[data-open='true'] > .navigation-menu-item-appear-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
+}
+
+[data-open='true'] > .navigation-menu-item-appear-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-open='true'] > .navigation-menu-item-appear-exit-active {
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 200ms ease-in, transform 200ms ease-in;
+}
