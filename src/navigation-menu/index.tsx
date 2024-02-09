@@ -94,36 +94,9 @@ const NavigationMenuContentImpl = forwardRef<
   );
 });
 
-// const NavigationMenuViewport = ({
-//   children,
-//   ...props
-// }: ComponentPropsWithoutRef<'div'>) => {
-//   const ref = useRef<ElementRef<'div'>>(null);
-
-//   useEffect(() => {
-//     const handleClickOutside = (event: MouseEvent) => {
-//       if (ref.current && !ref.current.contains(event.target as Node)) {
-//         alert('click outside');
-//       }
-//     };
-
-//     document.addEventListener('click', handleClickOutside);
-
-//     return () => {
-//       document.removeEventListener('click', handleClickOutside);
-//     };
-//   }, []);
-
-//   return (
-//     <div ref={ref} {...props}>
-//       {children}
-//     </div>
-//   );
-// };
-
 const NavigationViewport = () => {
   const [dataOpen, setDataOpen] = useState(false);
-  const [content, setContent] = useState<any>();
+  const [content, setContent] = useState<HTMLDivElement>();
   const { open, contentId, contents } = useNavigationStore();
   const dispatch = useNavigationDispatch();
 

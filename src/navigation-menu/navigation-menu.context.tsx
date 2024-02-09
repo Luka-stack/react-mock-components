@@ -1,4 +1,5 @@
 import {
+  ComponentPropsWithRef,
   ReactNode,
   createContext,
   useCallback,
@@ -19,12 +20,16 @@ export enum ActionTypes {
 type NavigationState = {
   open: boolean;
   contentId: string | null;
-  contents: Map<string, any>;
+  contents: Map<string, ComponentPropsWithRef<'div'>>;
 };
 
 type NavigationAction =
   | { type: ActionTypes.Trigger; contentId: string }
-  | { type: ActionTypes.Register; id: string; node: any }
+  | {
+      type: ActionTypes.Register;
+      id: string;
+      node: ComponentPropsWithRef<'div'>;
+    }
   | { type: ActionTypes.Deregister; id: string }
   | { type: ActionTypes.Close }
   | { type: ActionTypes.Enter };
