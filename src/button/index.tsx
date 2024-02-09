@@ -10,6 +10,7 @@ const buttonVariants = cva(
         default: 'bg-slate-200 text-slate-900',
         outline: 'text-slate-200 border-slate-500 hover:bg-slate-700/30 border',
         error: 'bg-red-900 text-slate-200 hover:bg-red-800',
+        link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {
         default: 'h-10 px-4 py-2',
