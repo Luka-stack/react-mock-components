@@ -19,12 +19,12 @@ export enum ActionTypes {
 
 type NavigationState = {
   open: boolean;
-  contentId: string | null;
+  visibleContentId: string | null;
   contents: Map<string, ComponentPropsWithRef<'div'>>;
 };
 
 type NavigationAction =
-  | { type: ActionTypes.Trigger; contentId: string }
+  | { type: ActionTypes.Trigger; visibleContentId: string }
   | {
       type: ActionTypes.Register;
       id: string;
@@ -39,11 +39,11 @@ type DispatchedAction = (action: NavigationAction) => void;
 const reducer = (state: NavigationState, action: NavigationAction) => {
   switch (action.type) {
     case ActionTypes.Deregister:
-      if (state.open && state.contentId === action.id) {
+      if (state.open && state.visibleContentId === action.id) {
         return {
           ...state,
           open: false,
-          contentId: null,
+          visibleContentId: null,
           contents: new Map(
             [...state.contents].filter(([key]) => key !== action.id)
           ),
@@ -61,7 +61,7 @@ const reducer = (state: NavigationState, action: NavigationAction) => {
       return {
         ...state,
         open: true,
-        contentId: action.contentId,
+        visibleContentId: action.visibleContentId,
       };
 
     case ActionTypes.Register:
@@ -74,7 +74,7 @@ const reducer = (state: NavigationState, action: NavigationAction) => {
       return {
         ...state,
         open: false,
-        contentId: null,
+        visibleContentId: null,
       };
 
     default:
@@ -115,7 +115,7 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
 
   const [defaultState, defaultDispatch] = useReducer(reducer, {
     open: false,
-    contentId: null,
+    visibleContentId: null,
     contents: new Map(),
   });
 
@@ -126,7 +126,7 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
           window.clearTimeout(closeTimeRef.current);
           defaultDispatch({
             type: ActionTypes.Trigger,
-            contentId: action.contentId,
+            visibleContentId: action.visibleContentId,
           });
           break;
 

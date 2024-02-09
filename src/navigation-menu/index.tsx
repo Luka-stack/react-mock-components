@@ -12,11 +12,19 @@ import {
 
 import { cn, composeRefs } from '../lib/utils';
 import {
+  NavigationMenuItemProvider,
+  useNavigationItemContext,
+} from './navigation-menu-item.context';
+import {
   ActionTypes,
   NavigationProvider,
   useNavigationDispatch,
   useNavigationStore,
 } from './navigation-menu.context';
+
+function makeContentId(baseId: string) {
+  return `${baseId}-content`;
+}
 
 const NavigationMenuList = ({ children }: { children: ReactNode }) => {
   return (
@@ -29,7 +37,11 @@ const NavigationMenuList = ({ children }: { children: ReactNode }) => {
 };
 
 const NavigationMenuItem = ({ children }: { children: ReactNode }) => {
-  return <li>{children}</li>;
+  return (
+    <NavigationMenuItemProvider>
+      <li>{children}</li>
+    </NavigationMenuItemProvider>
+  );
 };
 
 const NavigationMenuTrigger = forwardRef<
@@ -37,19 +49,23 @@ const NavigationMenuTrigger = forwardRef<
   ComponentPropsWithoutRef<'button'>
 >(({ children, className, ...props }, ref) => {
   const dispatch = useNavigationDispatch();
-  const { contentId } = useNavigationStore();
+  const { visibleContentId } = useNavigationStore();
+  const baseId = useNavigationItemContext();
+
+  const contentId = makeContentId(baseId);
+  const isVisibleContent = visibleContentId === contentId;
 
   return (
     <button
       ref={ref}
-      data-open={contentId === props.id}
+      data-open={isVisibleContent}
       onMouseEnter={() =>
-        dispatch({ type: ActionTypes.Trigger, contentId: props.id! })
+        dispatch({ type: ActionTypes.Trigger, visibleContentId: contentId })
       }
       onMouseLeave={() => dispatch({ type: ActionTypes.Close })}
       className={cn(
         'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-95 duration-150 linear text-slate-200 hover:bg-slate-800 h-10 px-4 py-2',
-        contentId === props.id && 'bg-slate-800',
+        isVisibleContent && 'bg-slate-800',
         className
       )}
       {...props}
@@ -65,16 +81,18 @@ const NavigationMenuContentMounter = forwardRef<
   ComponentPropsWithoutRef<'div'>
 >((props) => {
   const dispatch = useNavigationDispatch();
+  const baseId = useNavigationItemContext();
+  const contentId = makeContentId(baseId);
 
   useLayoutEffect(() => {
-    dispatch({ type: ActionTypes.Register, id: props.id!, node: props });
-  }, [dispatch, props.id, props]);
+    dispatch({ type: ActionTypes.Register, id: contentId, node: props });
+  }, [dispatch, contentId, props]);
 
   useLayoutEffect(() => {
     () => {
-      dispatch({ type: ActionTypes.Deregister, id: props.id! });
+      dispatch({ type: ActionTypes.Deregister, id: contentId });
     };
-  }, [dispatch, props.id]);
+  }, [dispatch, contentId]);
 
   return null;
 });
@@ -97,14 +115,14 @@ const NavigationMenuContentImpl = forwardRef<
 const NavigationViewport = () => {
   const [dataOpen, setDataOpen] = useState(false);
   const [content, setContent] = useState<HTMLDivElement>();
-  const { open, contentId, contents } = useNavigationStore();
+  const { open, visibleContentId, contents } = useNavigationStore();
   const dispatch = useNavigationDispatch();
 
   const viewportContent = useMemo(() => {
     return Array.from(contents.entries()).map(([id, { ref, ...props }]) => (
       <CSSTransition
         key={id}
-        in={contentId === id}
+        in={visibleContentId === id}
         unmountOnExit
         timeout={200}
         classNames={'navigation-menu-item-appear'}
@@ -112,14 +130,14 @@ const NavigationViewport = () => {
         <NavigationMenuContentImpl
           {...props}
           ref={composeRefs(ref, (node) => {
-            if (contentId === id && node) {
+            if (visibleContentId === id && node) {
               setContent(node);
             }
           })}
         />
       </CSSTransition>
     ));
-  }, [contentId, contents]);
+  }, [visibleContentId, contents]);
 
   return (
     <div

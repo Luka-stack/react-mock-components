@@ -9,12 +9,12 @@ import { Button } from './button';
 
 export function App() {
   return (
-    <div className="h-screen w-screen bg-slate-950">
+    <div className="w-screen h-screen bg-slate-950">
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger id="first">First</NavigationMenuTrigger>
-            <NavigationMenuContent id="first">
+            <NavigationMenuTrigger>First</NavigationMenuTrigger>
+            <NavigationMenuContent>
               <div>
                 <h1>Header First</h1>
                 <p>Description</p>
@@ -22,8 +22,8 @@ export function App() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger id="second">Second</NavigationMenuTrigger>
-            <NavigationMenuContent id="second">
+            <NavigationMenuTrigger>Second</NavigationMenuTrigger>
+            <NavigationMenuContent>
               <div>
                 <h1>Header Second</h1>
                 <p>Description</p>
