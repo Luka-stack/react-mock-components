@@ -5,11 +5,11 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from './navigation-menu';
+} from '.';
 
-export function App() {
+export default function NavigationMenuExample() {
   return (
-    <div className="flex items-start justify-center w-screen h-screen bg-slate-950">
+    <div className="flex items-start justify-center">
       <div>
         <NavigationMenu>
           <NavigationMenuList>

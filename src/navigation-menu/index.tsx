@@ -76,6 +76,24 @@ const NavigationMenuTrigger = forwardRef<
   );
 });
 
+const NavigationMenuLink = forwardRef<
+  ElementRef<'a'>,
+  ComponentPropsWithoutRef<'a'>
+>(({ children, className, ...props }, ref) => {
+  return (
+    <a
+      ref={ref}
+      className={cn(
+        'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-95 duration-150 linear text-slate-200 hover:bg-slate-800 h-10 px-4 py-2',
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </a>
+  );
+});
+
 const NavigationMenuContentMounter = forwardRef<
   ElementRef<'div'>,
   ComponentPropsWithoutRef<'div'>
@@ -190,5 +208,6 @@ export {
   NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuTrigger,
+  NavigationMenuLink,
   NavigationMenuContentMounter as NavigationMenuContent,
 };
