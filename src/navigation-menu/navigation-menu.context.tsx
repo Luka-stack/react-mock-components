@@ -1,35 +1,58 @@
-import { ReactNode, createContext, useContext, useReducer } from 'react';
+import {
+  ReactNode,
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useReducer,
+  useRef,
+} from 'react';
 
 export enum ActionTypes {
+  Enter,
   Close,
   Trigger,
   Register,
+  Deregister,
 }
 
 type NavigationState = {
   open: boolean;
   contentId: string | null;
-  contents: Map<string, ReactNode>;
+  contents: Map<string, any>;
 };
 
 type NavigationAction =
   | { type: ActionTypes.Trigger; contentId: string }
-  | { type: ActionTypes.Register; id: string; node: ReactNode }
-  | { type: ActionTypes.Close };
+  | { type: ActionTypes.Register; id: string; node: any }
+  | { type: ActionTypes.Deregister; id: string }
+  | { type: ActionTypes.Close }
+  | { type: ActionTypes.Enter };
 
 type DispatchedAction = (action: NavigationAction) => void;
 
 const reducer = (state: NavigationState, action: NavigationAction) => {
   switch (action.type) {
-    case ActionTypes.Trigger:
-      if (state.open && state.contentId === action.contentId) {
+    case ActionTypes.Deregister:
+      if (state.open && state.contentId === action.id) {
         return {
           ...state,
           open: false,
           contentId: null,
+          contents: new Map(
+            [...state.contents].filter(([key]) => key !== action.id)
+          ),
         };
       }
 
+      return {
+        ...state,
+        contents: new Map(
+          [...state.contents].filter(([key]) => key !== action.id)
+        ),
+      };
+
+    case ActionTypes.Trigger:
       return {
         ...state,
         open: true,
@@ -83,14 +106,51 @@ export function useNavigationDispatch() {
 }
 
 export function NavigationProvider({ children }: { children: ReactNode }) {
+  const closeTimeRef = useRef(0);
+
   const [defaultState, defaultDispatch] = useReducer(reducer, {
     open: false,
     contentId: null,
     contents: new Map(),
   });
 
+  const dispatch = useCallback(
+    (action: NavigationAction) => {
+      switch (action.type) {
+        case ActionTypes.Trigger:
+          window.clearTimeout(closeTimeRef.current);
+          defaultDispatch({
+            type: ActionTypes.Trigger,
+            contentId: action.contentId,
+          });
+          break;
+
+        case ActionTypes.Close:
+          window.clearTimeout(closeTimeRef.current);
+          closeTimeRef.current = window.setTimeout(() => {
+            defaultDispatch({ type: ActionTypes.Close });
+          }, 100);
+          break;
+
+        case ActionTypes.Enter:
+          window.clearTimeout(closeTimeRef.current);
+          break;
+
+        default:
+          defaultDispatch(action);
+      }
+    },
+    [defaultDispatch]
+  );
+
+  useEffect(() => {
+    return () => {
+      window.clearTimeout(closeTimeRef.current);
+    };
+  }, []);
+
   return (
-    <NavigationDispatchContext.Provider value={defaultDispatch}>
+    <NavigationDispatchContext.Provider value={dispatch}>
       <NavigationStateContext.Provider value={defaultState}>
         {children}
       </NavigationStateContext.Provider>

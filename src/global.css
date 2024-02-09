@@ -280,24 +280,36 @@ body {
   transition: opacity 200ms ease-in, transform 200ms ease-in;
 }
 
-[data-open='true'] > .navigation-menu-item-appear-enter {
+[data-open='true'] .navigation-menu-item-appear-enter {
   opacity: 0;
   transform: translateY(-100%);
 }
 
-[data-open='true'] > .navigation-menu-item-appear-enter-active {
+[data-open='true'] .navigation-menu-item-appear-enter-active {
   opacity: 1;
   transform: translateY(0);
   transition: opacity 200ms ease-out, transform 200ms ease-out;
 }
 
-[data-open='true'] > .navigation-menu-item-appear-exit {
+[data-open='true'] .navigation-menu-item-appear-exit {
   opacity: 1;
   transform: translateY(0);
 }
 
-[data-open='true'] > .navigation-menu-item-appear-exit-active {
+[data-open='true'] .navigation-menu-item-appear-exit-active {
   opacity: 0;
   transform: translateY(100%);
   transition: opacity 200ms ease-in, transform 200ms ease-in;
+}
+
+.open-indicator {
+  transition: transform 200ms ease-in-out;
+}
+
+[data-open='true'] > .open-indicator {
+  transform: rotate(0deg);
+}
+
+[data-open='false'] > .open-indicator {
+  transform: rotate(-180deg);
 }
