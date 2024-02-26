@@ -1,28 +1,18 @@
 import {
   Children,
-  HTMLAttributes,
-  ReactNode,
   cloneElement,
   isValidElement,
+  ButtonHTMLAttributes,
 } from 'react';
 import { cn } from '../lib/utils';
 
-export function Slot({
-  children,
-  onClick,
-  ...props
-}: HTMLAttributes<HTMLElement> & {
-  children: ReactNode;
-  onClick?: () => void;
-}) {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
+
+export function Slot({ children, ...props }: ButtonProps) {
   if (isValidElement(children)) {
     return cloneElement(children, {
       ...props,
       ...children.props,
-      onClick: (event: React.MouseEvent) => {
-        onClick && onClick();
-        children.props.onClick && children.props.onClick(event);
-      },
       style: {
         ...props.style,
         ...children.props.style,

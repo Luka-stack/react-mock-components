@@ -780,6 +780,11 @@ video {
   width: 100vw;
 }
 
+.min-w-max {
+  min-width: -moz-max-content;
+  min-width: max-content;
+}
+
 .max-w-max {
   max-width: -moz-max-content;
   max-width: max-content;
@@ -991,6 +996,11 @@ video {
   background-color: transparent;
 }
 
+.bg-red-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
 .p-1 {
   padding: 0.25rem;
 }
@@ -1024,6 +1034,16 @@ video {
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
+}
+
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.py-1\.5 {
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
 }
 
 .py-2 {
@@ -1534,6 +1554,30 @@ body {
 
 [data-open='false'] > .open-indicator {
   transform: rotate(-180deg);
+}
+
+/* Tooltip */
+
+.tooltip-appear-enter {
+  opacity: 0;
+  transform: scaleX(0.9) scaleY(0.9);
+}
+
+.tooltip-appear-enter-active {
+  opacity: 1;
+  transform: scaleX(1) scaleY(1);
+  transition: opacity 100ms ease-out, transform 100ms ease-out;
+}
+
+.tooltip-appear-exit {
+  opacity: 1;
+  transform: scaleX(1) scaleY(1);
+}
+
+.tooltip-appear-exit-active {
+  opacity: 0;
+  transform: scaleX(0.95) scaleY(0.95);
+  transition: opacity 100ms ease-in, transform 100ms ease-in;
 }
 
 .hover\:bg-black\/80:hover {

@@ -26,8 +26,9 @@ const ModalTrigger = forwardRef<
   if (asChild) {
     return (
       <Slot
-        onClick={() => {
+        onClick={(event) => {
           dispatch({ type: ActionTypes.Open });
+          onClick && onClick(event);
         }}
         {...props}
       >
@@ -189,8 +190,9 @@ const ModalAction = forwardRef<
     return (
       <Slot
         id={'modal-trigger'}
-        onClick={() => {
+        onClick={(event) => {
           dispatch({ type: ActionTypes.Close });
+          onClick && onClick(event);
         }}
         {...props}
       >
@@ -229,7 +231,8 @@ const ModalClose = forwardRef<
     return (
       <Slot
         id={'modal-trigger'}
-        onClick={() => {
+        onClick={(event) => {
+          onClick && onClick(event);
           dispatch({ type: ActionTypes.Close });
         }}
         {...props}

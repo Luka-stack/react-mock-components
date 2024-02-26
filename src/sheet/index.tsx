@@ -46,7 +46,10 @@ const SheetTriger = forwardRef<
     return (
       <Slot
         id={'sheet-trigger'}
-        onClick={() => dispatch({ type: ActionTypes.Open })}
+        onClick={(event) => {
+          dispatch({ type: ActionTypes.Open });
+          onClick && onClick(event);
+        }}
         {...props}
       >
         {children}
@@ -258,8 +261,9 @@ const SheetClose = forwardRef<
   if (asChild) {
     return (
       <Slot
-        onClick={() => {
+        onClick={(event) => {
           dispatch({ type: ActionTypes.Close });
+          onClick && onClick(event);
         }}
         {...props}
       >

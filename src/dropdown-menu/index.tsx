@@ -51,8 +51,9 @@ const Trigger = forwardRef<
       <Slot
         {...props}
         id={'dropdown-trigger'}
-        onClick={() => {
+        onClick={(event) => {
           dispatch({ type: ActionTypes.Open });
+          onClick && onClick(event);
         }}
       >
         {children}

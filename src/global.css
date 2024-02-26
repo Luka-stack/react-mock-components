@@ -313,3 +313,26 @@ body {
 [data-open='false'] > .open-indicator {
   transform: rotate(-180deg);
 }
+
+/* Tooltip */
+.tooltip-appear-enter {
+  opacity: 0;
+  transform: scaleX(0.9) scaleY(0.9);
+}
+
+.tooltip-appear-enter-active {
+  opacity: 1;
+  transform: scaleX(1) scaleY(1);
+  transition: opacity 100ms ease-out, transform 100ms ease-out;
+}
+
+.tooltip-appear-exit {
+  opacity: 1;
+  transform: scaleX(1) scaleY(1);
+}
+
+.tooltip-appear-exit-active {
+  opacity: 0;
+  transform: scaleX(0.95) scaleY(0.95);
+  transition: opacity 100ms ease-in, transform 100ms ease-in;
+}
