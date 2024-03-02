@@ -4,9 +4,9 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from './carousel';
+} from '.';
 
-export function App() {
+export default function CarouselExample() {
   return (
     <div className="flex flex-col items-center justify-center w-screen h-screen space-y-20">
       <Carousel className="max-w-lg">
