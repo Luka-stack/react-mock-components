@@ -1,5 +1,17 @@
 import { useState } from 'react';
 import {
+  BarChart,
+  Home,
+  KanbanSquare,
+  LayoutDashboard,
+  LineChart,
+  ScatterChart,
+  SettingsIcon,
+  Shield,
+  User,
+} from 'lucide-react';
+
+import {
   NavSidebar,
   NavSidebarButton,
   NavSidebarContent,
@@ -12,26 +24,15 @@ import {
   NavSidebarMain,
   NavSidebarText,
   NavSidebarTrigger,
-} from './nav-sidebar';
-import {
-  BarChart,
-  Home,
-  KanbanSquare,
-  LayoutDashboard,
-  LineChart,
-  ScatterChart,
-  SettingsIcon,
-  Shield,
-  User,
-} from 'lucide-react';
+} from '.';
 
-export function App() {
+export default function App() {
   const [selected, setSelected] = useState(1);
 
   return (
-    <div className="flex w-screen h-screen space-x-5 bg-slate-950">
+    <div className="flex w-screen h-screen space-x-5">
       <NavSidebar>
-        <NavSidebarContent className="bg-slate-950">
+        <NavSidebarContent>
           <NavSidebarHeader>
             <NavSidebarText>Luka-Stack Sidebar</NavSidebarText>
             <NavSidebarTrigger />
@@ -96,10 +97,10 @@ export function App() {
         </NavSidebarContent>
       </NavSidebar>
 
-      <main className="flex flex-col flex-1 p-4 space-y-5 bg-slate-950">
-        <div className="flex-1 p-4 bg-red-900 border rounded-md" />
-        <div className="flex-1 p-4 bg-yellow-900 border rounded-md" />
-        <div className="flex-1 p-4 bg-blue-900 border rounded-md" />
+      <main className="flex flex-col flex-1 p-4 space-y-5">
+        <div className="flex-1 p-4 bg-red-900 border rounded-md border-slate-500" />
+        <div className="flex-1 p-4 bg-yellow-900 border rounded-md border-slate-500" />
+        <div className="flex-1 p-4 bg-blue-900 border rounded-md border-slate-500" />
       </main>
     </div>
   );

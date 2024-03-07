@@ -145,7 +145,7 @@ const TooltipContent = forwardRef<
         <div
           ref={ref}
           className={cn(
-            'z-50 overflow-hidden rounded-md border bg-slate-800 px-3 py-1.5 text-sm shadow-md',
+            'z-50 overflow-hidden rounded-md border border-slate-500 bg-inherit px-3 py-1.5 text-sm shadow-md text-slate-400',
             className
           )}
           {...props}

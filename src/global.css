@@ -336,3 +336,8 @@ body {
   transform: scaleX(0.95) scaleY(0.95);
   transition: opacity 100ms ease-in, transform 100ms ease-in;
 }
+
+/* nav sidebar */
+.nav-sidebar-scroll::-webkit-scrollbar {
+  width: 5px;
+}
