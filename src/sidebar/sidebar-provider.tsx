@@ -60,8 +60,6 @@ type SidebarAction =
 type DispatchAction = (action: SidebarAction) => void;
 
 const reducer = (state: SidebarState, action: SidebarAction): SidebarState => {
-  console.log(action.type);
-
   switch (action.type) {
     case ActionTypes.Trigger:
       if (state.open && state.visibleContentId === action.contentId) {
