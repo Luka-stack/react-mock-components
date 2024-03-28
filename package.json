@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.18",
+    "@react-aria/interactions": "^3.21.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "lucide-react": "^0.323.0",

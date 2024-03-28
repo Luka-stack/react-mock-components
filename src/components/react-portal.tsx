@@ -1,14 +1,14 @@
 import { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+import { usePortalTarget } from '../hooks/use-portal-target';
 
 type Props = {
   children: ReactNode;
-  portalId?: string;
+  rootId?: string;
 };
 
-export function ReactPortal({ children, portalId }: Props) {
-  return createPortal(
-    children,
-    document.getElementById(portalId ? portalId : 'example-root')!
-  );
+export function ReactPortal({ children, rootId }: Props) {
+  const target = usePortalTarget(rootId);
+
+  return createPortal(children, target);
 }
